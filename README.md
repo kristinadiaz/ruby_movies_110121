@@ -1,5 +1,5 @@
 # Activity
-[Starter Code](https://github.com/learn-co-students/Phase-3-movie_app_101121)
+
 
 # Run the APP
 1. cd into movies_app
