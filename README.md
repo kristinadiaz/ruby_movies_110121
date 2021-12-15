@@ -42,10 +42,10 @@ Add CRUD and aggregate methods to ticket and create a new class
      </details>
 <br/>
 
-2. Create a find_tickets class method that takes a movie and finds every ticket with the matching title. The method should return an array of strings with the name and price of every ticket. 
+2. Create a find_tickets class method that takes a movie title and finds every ticket with the matching title. The method should return an array of strings with the name and price of every ticket. 
 > Hint: Try chaining two enumerable methods
 
-Add a 4th option to cli.rb, get a movie input from the user and call Ticket.find_tickets with the user input as an argument.
+Add a 4th option to cli.rb that gets a movie title input from the user and calls Ticket.find_tickets with the user input as an argument.
 
  <details>
       <summary>
@@ -63,7 +63,7 @@ Add a 4th option to cli.rb, get a movie input from the user and call Ticket.find
      </details>
 <br/>
 
-3. If you have already made print_ticket method Skip this part. Create a print_ticket instance method that prints the name, movie and price of a ticket. In Cli, Replace `2. List all ticket holder names` with `2. List all tickets`. In the 2 block iterate over Ticket.all and call print_ticket on every instance.
+3. If you have already made print_ticket method skip this part. Create a print_ticket instance method that prints the name, movie and price of a ticket. In Cli, Replace `2. List all ticket holder names` with `2. List all tickets`. In the 2 block iterate over Ticket.all and call print_ticket on every instance.
  <details>
       <summary>
         solution 
@@ -121,7 +121,7 @@ finds a ticket based on name and movie, runs the discount method.
 ### Bonus
 
 
-6. In cli.rb, refactor the 2 case block to iterate over Ticket.all and print every ticket holder name. In Create Ticket, call the menu method after the ticket is created. Run your app, create a few tickets and run "2. List Ticket holder names"
+6. In cli.rb, refactor the 2 case block to iterate over Ticket.all and print every ticket holder name. Additionally if it's not already being called, in Create Ticket, call the menu method after a ticket is created to re-run the menu. Run your app, create a few tickets and run "2. List Ticket holder names" to verify your tickets were created.
 
 
 7. Create a Movie file with a Movie class with a title and movie_id. Title should have the ability to be read and set. Movie_id should only be read. Movie should also have an @@all that tracks every movie instance created and a class method that returns @@all. In the seed function of the CLI add 3 - 5 movies using Movie.new
