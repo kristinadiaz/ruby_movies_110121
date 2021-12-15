@@ -2,6 +2,7 @@ require 'pry'
 
 def initialize_app
    menu
+   seed
 end
    
 def menu
@@ -32,6 +33,14 @@ end
        puts "Title"
        title = gets.strip
 
-       t1 = Ticket.new(name, title)
-       binding.pry
+       Ticket.new(name, title)       
+    end
+
+    def seed
+        t1 = Ticket.new("Bob", "Titanic")
+        t2 = Ticket.new
+    end
+
+    def self.find_tickets(title)
+        seed.find({|t|} t == title)
     end
