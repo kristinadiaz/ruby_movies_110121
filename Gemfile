@@ -1,4 +1,11 @@
 source "https://rubygems.org"
 
-gem "require_all", "~> 3.0"
-gem "pry", "~> 0.14.1"
+
+gem "rake" 
+gem "rspec"
+gem "require_all"
+gem "pry"
+gem 'sqlite3'
+gem 'activerecord'
+gem "activesupport", "~> 6.1"
+gem 'sinatra-activerecord' 
