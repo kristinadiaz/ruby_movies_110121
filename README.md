@@ -1,82 +1,112 @@
 # Activity
-[Download SQL browser](https://sqlitebrowser.org/dl/)
-
 
 # Deliverables
-Practice SQL commands
+Add migrations, schemas, seeds and practice active record methods in the console.
 >Note: if you get stuck review 
-SQL Insert, Select, Update and Delete and 
-Introduction to Table Relations in SQL and Associating Tables with Foreign Keys and SQL Joins
+Active Record Migrations, Writing Migrations, Intro to Rake, 
 
 
-1. Create a db folder with the file `development.sqlite3`. Open DB Browser for SQLite. Click `Open Database` and through the finder navigate to `development.sqlite3` and open it.
-
-  <img src="./assets/image_1.png" alt="db folder" style="margin-right: 10px;" />
-  <img src="./assets/image_2.png" alt="open db" style="margin-right: 10px;" />
-  <img src="./assets/image_3.png" alt="development.sqlite" style="margin-right: 10px;" />
-
-2. Create a ticket table by clicking on the Execute SQL tab, adding the SQL blow and clicking the play button(circled in yellow). Afterwords talk with your group about the SQL, what is this doing, what is that Primary key? What are the items on the left (id, title, director, description) what are the items on the right (VARCHAR(30), INTEGER). What is that Foreign key on the bottom of tickets?
-
-```
-CREATE TABLE movies(
-    id INTEGER,
-    title VARCHAR(30),
-    director VARCHAR(50),
-    description VARCHAR(10),
-    PRIMARY KEY(id)
-);
-
-CREATE TABLE tickets(
-    id INTEGER,
-    price INTEGER,
-    name VARCHAR(30),
-    movie_id INTEGER,
-    PRIMARY KEY(id)
-    FOREIGN KEY (movie_id) REFERENCES movies(id)
-);
-
-
-```
-  <img src="./assets/image_4.png" alt="development.sqlite" style="margin-right: 10px;" />
-
-3. Clear the create table from the SQL terminal. Execute a SQL command that inserts data to our table. Create 3 rows in each table.
+1. run `bundle install` after your gems have been installed/updated run ` bundle exec rake -T` to view your rake tasks. Use this as a reference whenever you need it. 
+>Note: `rake -T` will work but calling `bundle exec` before commands prevents versioning errors.
 
  <details>
       <summary>
         solution 
       </summary>
       <hr/>
-        INSERT INTO movies (title, director, description) VALUES ('Happy pets', 'rose','A movie about sad pets, a satirical comedy');
-        INSERT INTO movies (title, director, description) VALUES ('ruby is cool', 'ix','ix talks about ruby');
-        INSERT INTO movies (title, director, description) VALUES ('Icewind dale', 'wizards of the cost','Icewind dale is cold, really cold, like really really cold, the movie.');
-        INSERT INTO tickets (price, name, movie_id) VALUES (5, 'ix',1);
-        INSERT INTO tickets (price, name, movie_id) VALUES (5, 'rose',3);
-        INSERT INTO tickets (price, name, movie_id) VALUES (5, 'ix',3);
+        <img src="assets/image_1.png"
+        alt="rake -T"
+        style="margin-right: 10px;" />
       <hr/>
  </details>
 
- 4. Clear the the SQL terminal. Execute a SQL command that selects all of the data from tickets. Clear the SQL terminal and execute a second command that selects all of the data from movies.
+2. Use rake to create two migrations one named `create_tickets` and the other `create_movies  `
+ <details>
+      <summary>
+        solution 
+      </summary>
+      <hr/>
+        <img src="assets/image_2.png"
+        alt="rake db:create_migrations"
+        style="margin-right: 10px;" />
+      <hr/>
+ </details>
 
+3. The `db` folder should now have a `migrate` folder and two new files. You should see something similar to the following in each file, one file with CreateTickets and the other with CreateMovies.
+```
+class CreateTickets < ActiveRecord::Migration[6.1]
+  def change
+  end
+end
+```
+
+Use create_table to create a table for each migration. tickets should have a name:string and price:float. movies should have title:string, director:string, description:string, showing:boolean. 
+
+
+
+ <details>
+      <summary>
+        solution 
+      </summary>
+      <hr/>
+        <img src="assets/image_3.png"
+        alt="migration terminal"
+        style="margin-right: 10px;" />
+           <img src="assets/image_4.png"
+        alt="schema"
+        style="margin-right: 10px;" />
+      <hr/>
+ </details>
+
+
+ 4. run `bundle exec rake db:migrate` to migrate your tables. Verify the schema.rb was created correctly.
   <details>
       <summary>
         solution 
       </summary>
       <hr/>
-        SELECT * FROM movies;
-        SELECT * FROM tickets;
+      <img src="assets/image_5.png" alt="migration terminal" style="margin-right: 10px;" />
+        
+      <img src="assets/image_6.png" alt="schema" style="margin-right: 10px;" />
       <hr/>
  </details>
 
- 5. Clear the the SQL terminal. Execute a SQL command that displays the name from tickets and movies associated with those tickets.
+ 5. Create a Ticket model and Movie Model that inherits from `ActiveRecord::Base`
 
    <details>
       <summary>
         solution 
       </summary>
       <hr/>
-        SELECT name, title
-        FROM tickets
-        INNER JOIN movies
-        ON tickets.movie_id = movies.id;
+      <img src="assets/image_7.png" alt="migration terminal" style="margin-right: 10px;" />
+        
+      <img src="assets/image_8.png" alt="schema" style="margin-right: 10px;" />
       <hr/>
  </details>
+
+ 6. Test out your active record commands in your console. run `rake console`
+ and do the following.
+  - create an instance of ticket or movie
+  - save an instance of ticket or movie to the db
+  - use a command that both creates an instance and saves it to the db at the same time.
+  - display all of the resources from ticket or movie
+  - display the first resource from ticket or movie
+  - display the last resource from ticket or movie
+  - find a specific resource by id
+  - find a specific resource by a different attribute
+  - update a single resource from ticket or movie
+  - update all the resources from from ticket or movie at the same time
+  - delete a single resource
+  - delete all resources 
+
+Bonus: Explore active record methods and see what they do. Here's a list of some helpful ones. 
+
+Count
+Average
+Minimum
+Maximum
+Sum
+
+find_or_create_by
+order
+
