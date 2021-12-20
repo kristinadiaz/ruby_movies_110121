@@ -118,7 +118,9 @@ ReceiptLineItem: receipt_id, food_id
 
     <details>
       <summary>
+       solution
       </summary>
+      Note: You no longer need to add destroy all, as I do in this example rake db:seed:replant will do that for you.
       <hr/>
       <img src="assets/image_14.png" alt="seeds" style="margin-right: 10px;" />
       <hr/>
