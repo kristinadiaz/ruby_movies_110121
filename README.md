@@ -1,59 +1,76 @@
 # Activity
 
 # Deliverables
-Add migrations, schemas, seeds and practice active record methods in the console.
+Add migrations relationships. Our tickets should belong to one movie, a movie can have many tickets. We want some new models for managing our snack stand at the movie theater. A receipt can have many receipt_line_items, and many foods through receipt_line_items. A food can have many receipt_line_items, and many receipts through receipt_line_items. ReceiptLineItem will be the join model.
+
 >Note: if you get stuck review 
 Active Record Migrations, Writing Migrations, Intro to Rake, 
 
+0. Draw out a Domain Model for the following.
 
-1. run `bundle install` after your gems have been installed/updated run ` bundle exec rake -T` to view your rake tasks. Use this as a reference whenever you need it. 
->Note: `rake -T` will work but calling `bundle exec` before commands prevents versioning errors.
+one-to-many
+Ticket: name, price movie_id
+Movie: title, director, description, showing
 
+many-to-many
+Receipt: customer_name
+Food: food_name, price
+ReceiptLineItem: receipt_id, food_id
+
+
+
+1. If you haven't already, add an id column to tickets that references movie_id.
+>
  <details>
       <summary>
         solution 
       </summary>
+      `bundle exec rake db:create_migration NAME=add_column_to_tickets`
       <hr/>
         <img src="assets/image_1.png"
-        alt="rake -T"
+        alt="add column"
         style="margin-right: 10px;" />
       <hr/>
  </details>
 
-2. Use rake to create two migrations one named `create_tickets` and the other `create_movies  `
+2. Use rake to create three migrations one named `create_receipt`, `create_food`, and `create_receipt_line_item` with the attributes listed in step 0.  
  <details>
       <summary>
         solution 
       </summary>
+      bundle exec rake db:create_migration NAME=create_receipts
+      bundle exec rake db:create_migration NAME=create_foods  
+      bundle exec rake db:create_migration NAME=create_receipt_line_items
       <hr/>
         <img src="assets/image_2.png"
-        alt="rake db:create_migrations"
+        alt="receipts"
+        style="margin-right: 10px;" />
+        <img src="assets/image_3.png"
+        alt="foods"
+        style="margin-right: 10px;" />
+        <img src="assets/image_4.png"
+        alt="receipt_line_items"
         style="margin-right: 10px;" />
       <hr/>
  </details>
 
-3. The `db` folder should now have a `migrate` folder and two new files. You should see something similar to the following in each file, one file with CreateTickets and the other with CreateMovies.
-```
-class CreateTickets < ActiveRecord::Migration[6.1]
-  def change
-  end
-end
-```
-
-Use create_table to create a table for each migration. tickets should have a name:string and price:float. movies should have title:string, director:string, description:string, showing:boolean. 
-
-
-
+3. Create models for `Receipt`, `Food`, and `ReceiptLineItems` 
  <details>
       <summary>
         solution 
       </summary>
       <hr/>
-        <img src="assets/image_3.png"
-        alt="migration terminal"
+        <img src="assets/image_5.png"
+        alt="files"
         style="margin-right: 10px;" />
-           <img src="assets/image_4.png"
-        alt="schema"
+        <img src="assets/image_6.png"
+        alt="foods"
+        style="margin-right: 10px;" />
+        <img src="assets/image_7.png"
+        alt="receipt"
+        style="margin-right: 10px;" />
+        <img src="assets/image_8.png"
+        alt="receipt_line_items"
         style="margin-right: 10px;" />
       <hr/>
  </details>
@@ -71,42 +88,43 @@ Use create_table to create a table for each migration. tickets should have a nam
       <hr/>
  </details>
 
- 5. Create a Ticket model and Movie Model that inherits from `ActiveRecord::Base`
+ 5. Add a has many tickets association to the Movie model and a belongs to movie association to the Ticket model. 
 
    <details>
       <summary>
         solution 
       </summary>
       <hr/>
-      <img src="assets/image_7.png" alt="migration terminal" style="margin-right: 10px;" />
+      <img src="assets/image_9.png" alt="has many tickets" style="margin-right: 10px;" />
         
-      <img src="assets/image_8.png" alt="schema" style="margin-right: 10px;" />
+      <img src="assets/image_10.png" alt="belongs to movie" style="margin-right: 10px;" />
       <hr/>
  </details>
 
- 6. Test out your active record commands in your console. run `rake console`
- and do the following.
-  - create an instance of ticket or movie
-  - save an instance of ticket or movie to the db
-  - use a command that both creates an instance and saves it to the db at the same time.
-  - display all of the resources from ticket or movie
-  - display the first resource from ticket or movie
-  - display the last resource from ticket or movie
-  - find a specific resource by id
-  - find a specific resource by a different attribute
-  - update a single resource from ticket or movie
-  - update all the resources from from ticket or movie at the same time
-  - delete a single resource
-  - delete all resources 
+ 6. Add two belongs to association to the ReceiptLineItem model. Add a has many receipt_line_items and a has many foods through receipt_line_items association to the Receipt model. Finally, add a has many receipt_line_items and a has many receipts through receipt_line_items association to the Food model.
+   <details>
+      <summary>
+        solution 
+      </summary>
+      <hr/>
+      <img src="assets/image11.png" alt="join model" style="margin-right: 10px;" />
+        
+      <img src="assets/image_12.png" alt="receipt has many through" style="margin-right: 10px;" />
 
-Bonus: Explore active record methods and see what they do. Here's a list of some helpful ones. 
+      <img src="assets/image_13.png" alt="food has many through" style="margin-right: 10px;" />
+      <hr/>
+ </details>
 
-Count
-Average
-Minimum
-Maximum
-Sum
+ 7. Create some seed data and test these associations in the console. 
 
-find_or_create_by
-order
+    <details>
+      <summary>
+      </summary>
+      <hr/>
+      <img src="assets/image14.png" alt="seeds" style="margin-right: 10px;" />
+      <hr/>
+ </details>
 
+
+
+ 
